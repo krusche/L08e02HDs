@@ -42,10 +42,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract repository name and convert to lowercase
+        id: repo
+        run: echo "REPO_NAME=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/ase/hello-docker .
+          docker build -t ghcr.io/${{ env.REPO_NAME }}/ase/hello-docker .
 
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}/ase/hello-docker:latest
+          docker push ghcr.io/${{ env.REPO_NAME }}/ase/hello-docker:latest
