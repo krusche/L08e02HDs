@@ -1,4 +1,4 @@
-FROM alpine/java:21-jdk
+FROM eclipse-temurin:21-jdk-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 ARG JAR_FILE=build/libs/HelloDocker-*.jar
